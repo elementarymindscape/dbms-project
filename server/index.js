@@ -2,13 +2,34 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
 
 const saltRounds = 15;
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true,
+}
+));
 app.use(express.json());
+app.use(cookieParser());
+
+app.use(session({
+    key: "userId",
+    secret: "AVeryBigSecretNoOneShouldKnow",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 60 * 100000
+    }
+}));
+
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -42,7 +63,12 @@ app.post("/api/registeruser", (req, res)=>{
 });
 
 app.get("/api/login", (req, res)=>{
-    res.send("welcome to show users")
+   if(req.session.user){
+       res.send({ loggedIn: true, user: req.session.user })
+   }
+   else{
+       res.send({ loggedIn: false })
+   }
 });
 
 app.post("/api/login", (req, res)=>{
@@ -56,10 +82,9 @@ app.post("/api/login", (req, res)=>{
         }
         if(results.length > 0){
             bcrypt.compare(password, results[0].password, (err, response)=>{
-                if(err){
-                    console.log(err)
-                }
                 if(response){
+                    req.session.user = results;
+                    console.log(req.session.user)
                     res.send(results)
                 }
                 else{
