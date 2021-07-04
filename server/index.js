@@ -1,6 +1,9 @@
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
+
+const saltRounds = 15;
 
 const app = express();
 
@@ -24,11 +27,17 @@ app.post("/api/registeruser", (req, res)=>{
     const fullName = req.body.firstname + ' ' + req.body.lastname;
     const email = req.body.email;
     const phoneNo = req.body.phoneNo;
-    db.query(sqlInsertUser, [ fullName, username, email, phoneNo, password ], (error, results)=>{
-        if (error){
-            console.log(error);
+
+    bcrypt.hash(password, saltRounds, (err,hash)=>{
+        if(err){
+            console.log(err)
         }
-        console.log(results)
+                db.query(sqlInsertUser, [ fullName, username, email, phoneNo, hash ], (error, results)=>{
+                if (error){
+                    console.log(error);
+                }
+                console.log(results)
+    })
     })
 });
 
@@ -37,20 +46,29 @@ app.get("/api/login", (req, res)=>{
 });
 
 app.post("/api/login", (req, res)=>{
-    const sqlShowUsers = ' SELECT * from userstable WHERE email = ? AND password=? '
+    const sqlShowUsers = ' SELECT * from userstable WHERE email = ?;'
     const email = req.body.email;
     const password = req.body.password;
-    db.query(sqlShowUsers, [email, password], (error, results)=>{
+    db.query(sqlShowUsers, [email], (error, results)=>{
         if (error){
             console.log(error);
             res.send({error});
         }
         if(results.length > 0){
-            res.send(results);
-            console.log(results);
+            bcrypt.compare(password, results[0].password, (err, response)=>{
+                if(err){
+                    console.log(err)
+                }
+                if(response){
+                    res.send(results)
+                }
+                else{
+                    res.send({message: "Password Does Not Match"})
+                }
+            })
         }
         else{
-            res.send({message: "Wrong username/password combination"});
+            res.send({message: "User Does Not Exist"});
         }
     })
 });
