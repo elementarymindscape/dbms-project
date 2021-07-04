@@ -13,28 +13,26 @@
         const [phoneNo, setPhoneNo] = useState('');
 
             
-            const submitNewUser = async() => {
+            const submitNewUser = async(e) => {
                 let url = "http://localhost:3001/api/registeruser" ;
-                try{
+                try {
                     let res = await axios({
-                        method: 'POST',
-                        url: url,
-                        data: {
-                            firstname: firstName,
-                            lastname: lastName,
-                            username: userName,
-                            email: email,
-                            phoneNo: phoneNo,
-                            password: password
-                        }
-                    }).catch(e => {
-                        throw e?.response?.data;
-                      });
-                      if (!res) throw 'No response found';
-                }finally{
-
+                      method: 'post',
+                      url: url,
+                      data: {
+                        firstname: firstName,
+                        lastname: lastName,
+                        username: userName,
+                        email: email,
+                        phoneNo: phoneNo,
+                        password: password
+                    }
+                    });
+                    console.log(res.data);
+                  } catch (e) {
+                    console.log(e.toString());
+                  }
                 }
-            } 
 
         return(
           <div>

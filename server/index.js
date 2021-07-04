@@ -22,13 +22,8 @@ app.post("/api/registeruser", (req, res)=>{
     const username = req.body.username;
     const password = req.body.password;
     const fullName = req.body.firstname + ' ' + req.body.lastname;
-    // const firstname = req.body.firstname;
-    // const lastname = req.body.lastname;
     const email = req.body.email;
     const phoneNo = req.body.phoneNo;
-
-
-
     db.query(sqlInsertUser, [ fullName, username, email, phoneNo, password ], (error, results)=>{
         if (error){
             console.log(error);
@@ -37,19 +32,25 @@ app.post("/api/registeruser", (req, res)=>{
     })
 });
 
-app.post("/api/showusers", (req, res)=>{
+app.get("/api/login", (req, res)=>{
+    res.send("welcome to show users")
+});
+
+app.post("/api/login", (req, res)=>{
     const sqlShowUsers = ' SELECT * from userstable WHERE email = ? AND password=? '
     const email = req.body.email;
     const password = req.body.password;
     db.query(sqlShowUsers, [email, password], (error, results)=>{
         if (error){
-            console.log(errors);
+            console.log(error);
+            res.send({error});
         }
-        if(results){
+        if(results.length > 0){
             res.send(results);
+            console.log(results);
         }
         else{
-            res.send("Wrong username/password combination");
+            res.send({message: "Wrong username/password combination"});
         }
     })
 });

@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import axios from 'axios';
+// import axios from 'axios';
 import RegisterPage from './registerPage';
-// import SignUpPage from './signUpPage'
+// import SignInPage from './signInPage'
 
     const  App = () =>{
      return(
       <RegisterPage/>
-   );
-        
+   );     
    }
 export default App;
