@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-
+const jwt = require("jsonwebtoken");
 
 const saltRounds = 15;
 
@@ -41,6 +41,8 @@ const db = mysql.createConnection({
 
 db.connect();
 
+// CREATING A NEW USER
+
 app.post("/api/registeruser", (req, res)=>{
     const sqlInsertUser = ' INSERT into userstable (fullName, userName, email, phoneNumber, password ) VALUES (?,?,?,?,?); '
     const username = req.body.username;
@@ -62,6 +64,35 @@ app.post("/api/registeruser", (req, res)=>{
     })
 });
 
+//VERIFY JWT USING MIDDLEWARE
+
+const verifyJWT = (req, res, next) =>{
+    const token = req.headers["x-access-token"]
+
+    if(!token){
+        res.send("Auth Failed! Token Not Present");
+        return;
+    } else{
+        jwt.verify(token, "AVeryBigSecretNoOneShouldKnowForJWT", (err,decoded)=>{
+            if(err){
+                res.json({isAuth: false, message: "Error in verifying token"})
+                return;
+            }
+            else{
+                req.userId = decoded.id;
+                next();
+            }
+        })
+    }
+}
+
+//CHECKING AUTH
+app.get("/api/authcheck", verifyJWT ,(req,res)=>{
+    res.send({isAuth: true, message: "Auth Successful"})
+})
+
+
+//SETTING LOGGEDIN STATUS AS TRUE
 app.get("/api/login", (req, res)=>{
    if(req.session.user){
        res.send({ loggedIn: true, user: req.session.user })
@@ -71,6 +102,7 @@ app.get("/api/login", (req, res)=>{
    }
 });
 
+//LOGIN SYSTEM
 app.post("/api/login", (req, res)=>{
     const sqlShowUsers = ' SELECT * from userstable WHERE email = ?;'
     const email = req.body.email;
@@ -84,8 +116,14 @@ app.post("/api/login", (req, res)=>{
             bcrypt.compare(password, results[0].password, (err, response)=>{
                 if(response){
                     req.session.user = results;
-                    console.log(req.session.user)
-                    res.send(results)
+                    const id = results[0].userId;
+                    const name = results[0].fullName;
+                    const email = results[0].email;
+                    const token = jwt.sign({id, name, email}, "AVeryBigSecretNoOneShouldKnowForJWT", {
+                        expiresIn: 600,
+                    });
+                    res.send({isAuth: true, token: token, results});
+                    console.log(req.session.user);
                 }
                 else{
                     res.send({message: "Password Does Not Match"})
@@ -94,6 +132,44 @@ app.post("/api/login", (req, res)=>{
         }
         else{
             res.send({message: "User Does Not Exist"});
+        }
+    })
+});
+
+// CONTACT FORM DETAILS SEND TO DATABASE
+app.get("/api/contactus", (req, res) => {
+    res.send("Welcome to Contact Us");
+});
+
+app.post("/api/contactus",(req,res)=>{
+    const sqlInsertContactMessage = " INSERT into contact (fullName, email, message) VALUES (?,?,?); "
+    const fullName = req.body.fullName;
+    const email = req.body.email;
+    const message = req.body.message;
+    db.query(sqlInsertContactMessage, [fullName, email, message], (error,results)=>{
+        if(error){
+            console.log(error);
+        }
+        if(results){
+            res.send({message: "Message Sent Successfully!", data: results});
+            console.log(results);
+        }else{
+            res.send({message: "Message Not Sent! Please Try Again..", data: results});
+        }
+    })
+});
+
+//GETTING PIZZAS LIST
+app.post("/api/pizzas", (req,res)=>{
+    const getAllPizzas = " SELECT * FROM pizzamenu; ";
+    db.query(getAllPizzas, (error, results)=>{
+        if(error){
+            console.log(error);
+        }
+        if(results){
+            res.send({pizzas: results})
+        }else{
+            res.send({message: "Error connecting to Database"})
         }
     })
 });

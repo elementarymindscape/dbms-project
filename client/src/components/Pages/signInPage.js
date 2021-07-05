@@ -1,7 +1,7 @@
   import React, { useState, useEffect } from 'react';
-  import './App.css';
   import axios from 'axios';
-  import './signInPage.css'
+  import '../Styles/signInPage.css';
+  import {Link} from 'react-router-dom';
 
       const  SignInPage = () =>{
 
@@ -28,8 +28,9 @@
               setLoginStatus(res.data.message)
             }
             else{
-              setLoginStatus(res.data[0].userName)
+              setLoginStatus(res.data.results[0].userName)
             }
+            localStorage.setItem("token", res.data.token)
           } catch (e) {
             console.log(e.toString());
           }
@@ -44,12 +45,12 @@
         },[])
         
       return(
-        <div>
+        <div className='Background'>
             <div className='color'></div>
             <div className='color'></div>
             <div className='color'></div>
             <div className='box'>
-          <div className='container'>
+          <div className='loginContainer'>
           <div className='form'>
             <h2>Login</h2>
             <form>
@@ -61,6 +62,10 @@
                 </div>
                 <div className='inputBoxx' >
                 <button type='submit' onClick={loginUser} className='btn'>Login</button>
+                </div>
+                <div className='inputBoxx'>
+                  <p>New User?</p> 
+                  <Link to="/register">Click here to Register</Link>
                 </div>
             </form>
         </div>

@@ -1,7 +1,7 @@
     import React, { useState } from 'react';
-    import './App.css';
     import axios from 'axios';
-    import './registerPage.css'
+    import {Link} from 'react-router-dom';
+    import '../Styles/registerPage.css'
 
         const  RegisterPage = () =>{
 
@@ -35,12 +35,12 @@
                 }
 
         return(
-          <div>
+          <div className='Background' >
               <div className='color'></div>
               <div className='color'></div>
               <div className='color'></div>
               <div className='box'>
-             <div className='container'>
+             <div className='registerContainer'>
              <div className='form'>
               <h2>Register User</h2>
               <form>
@@ -65,6 +65,10 @@
                   <div className='inputBoxx' >
                   <button type='submit' className='btn' onClick={submitNewUser} >Submit</button>
                   </div>
+                  <div className='inputBoxx'>
+                  <p>Already Registered?</p> 
+                  <Link to="/login">Click here to Login</Link>
+                </div>
               </form>
           </div>
       </div>
