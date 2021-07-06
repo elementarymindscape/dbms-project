@@ -20,15 +20,15 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(session({
-    key: "userId",
-    secret: "AVeryBigSecretNoOneShouldKnow",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        expires: 600000
-    }
-}));
+// app.use(session({
+//     key: "userId",
+//     secret: "AVeryBigSecretNoOneShouldKnow",
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//         expires: 600000
+//     }
+// }));
 
 
 const db = mysql.createConnection({
@@ -93,14 +93,14 @@ app.get("/api/authcheck", verifyJWT ,(req,res)=>{
 
 
 //SETTING LOGGEDIN STATUS AS TRUE
-app.get("/api/login", (req, res)=>{
-   if(req.session.user){
-       res.send({ loggedIn: true, user: req.session.user })
-   }
-   else{
-       res.send({ loggedIn: false })
-   }
-});
+// app.get("/api/login", (req, res)=>{
+//    if(req.session.user){
+//        res.send({ loggedIn: true, user: req.session.user })
+//    }
+//    else{
+//        res.send({ loggedIn: false })
+//    }
+// });
 
 //LOGIN SYSTEM
 app.post("/api/login", (req, res)=>{
@@ -115,7 +115,6 @@ app.post("/api/login", (req, res)=>{
         if(results.length > 0){
             bcrypt.compare(password, results[0].password, (err, response)=>{
                 if(response){
-                    req.session.user = results;
                     const id = results[0].userId;
                     const name = results[0].fullName;
                     const email = results[0].email;
@@ -123,7 +122,6 @@ app.post("/api/login", (req, res)=>{
                         expiresIn: 600,
                     });
                     res.send({isAuth: true, token: token, results});
-                    console.log(req.session.user);
                 }
                 else{
                     res.send({message: "Password Does Not Match"})

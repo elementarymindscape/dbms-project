@@ -2,9 +2,11 @@ import React from 'react';
 import * as bootstrap from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const NavBar = () =>{
+const NavBar = ({ user }) =>{
     return(
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                    <React.Fragment>
+                        {user && <React.Fragment>
+                            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <a href="/" className="navbar-brand ms-3">PeppiPizza Co.</a>
              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -12,7 +14,7 @@ const NavBar = () =>{
             <div className="collapse navbar-collapse" id="navbarSupportedContent" >
                 <ul className="navbar-nav ms-auto text-center ">
                     <li className="nav-item">
-                        <a href="/" className='nav-link'>Home</a>
+                        <a href="/home" className='nav-link'>Home</a>
                     </li>
                     <li className="nav-item">
                         <a href="/menu" className='nav-link'>Menu</a>
@@ -23,15 +25,31 @@ const NavBar = () =>{
                     <li className="nav-item">
                         <a href="/contact" className='nav-link'>Contact Us</a>
                     </li>
-                    {/* <li className="nav-item">
+                    { !user &&
+                    <React.Fragment>
+                    <li className="nav-item">
                         <a href="/login" className='nav-link'>Login</a>
                     </li>
                     <li className="nav-item">
                         <a href="/register" className='nav-link'>Register</a>
-                    </li> */}
+                    </li>
+                    </React.Fragment>
+                    }
+                    { user &&
+                    <React.Fragment>
+                    <li className="nav-item">
+                        <a href="/" className='nav-link'>{user.name}</a>
+                    </li>
+                    <li className="nav-item">
+                        <a href="/logout" className='nav-link'>Logout</a>
+                    </li>
+                    </React.Fragment>
+                    }
                 </ul>    
             </div>
         </nav>
+                        </React.Fragment> }
+                    </React.Fragment>
     );
 }
 

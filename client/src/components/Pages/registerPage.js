@@ -36,9 +36,6 @@ import React, { useState } from 'react';
 
         return(
           <div className='Background' >
-              <div className='color'></div>
-              <div className='color'></div>
-              <div className='color'></div>
               <div className='box'>
              <div className='registerContainer'>
              <div className='formm'>

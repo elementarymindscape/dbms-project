@@ -12,51 +12,37 @@ import Footer from './components/Essential Components/footer';
 import AboutPage from './components/Pages/aboutPage';
 import ContactPage from './components/Pages/contactPage';
 import MenuPage from './components/Pages/menuPage';
+import Logout from './components/Pages/logout';
+import { Menu } from '@material-ui/core';
 
   export default class App extends React.Component{
-     constructor(){
-        super();
-        this.state = {
-           isAuthenticated: false,
-        }
-     }
+    state={
+    };
 
-     componentDidMount(){
+     componentDidMount(){ 
         try {
          const jwt = localStorage.getItem("token");
-         const currentUser = jwtDecode(jwt);
-         console.log(currentUser);
+         const user = jwtDecode(jwt);
+         console.log("CURRENT USER", user)
+         this.setState({ user });
         }
         catch(err){}
      }
 
      render(){
+        console.log("USERRRR", this.state)
       return(
          <div>
          <Router>
-            <NavBar />
-            {/* <Route path="/login" exact>
-               <SignInPage />
-            </Route>
-            <Route path="/register" exact>
-               <RegisterPage />
-            </Route> */}
-            <Switch>
-            <Route path="/" exact > 
-               <HomePage />
-            </Route>
-            <Route path="/about" exact > 
-               <AboutPage />
-            </Route>
-            <Route path="/contact" exact > 
-               <ContactPage />
-            </Route>
-            <Route path="/menu" exact > 
-               <MenuPage />
-            </Route>
-            {console.log("BEFORE PRIVATE ROUTE AUTH", this.state.isAuthenticated)}
+            <NavBar user={this.state.user} />
+            <Route path="/login" exact component={SignInPage}/>
+            <Route path="/logout" exact component={Logout} />
+            <Route path="/register" exact component={RegisterPage} />
+            <PrivateRoute path="/home" exact component={HomePage} /> 
+            <PrivateRoute path="/about" exact component={AboutPage}/> 
+            <PrivateRoute path="/contact" exact component={ContactPage} /> 
+            <PrivateRoute path="/menu" exact component={MenuPage} /> 
             <PrivateRoute path="/profile" exact component={ProfilePage} isAuth={this.state.isAuthenticated} />
-            </Switch>
          <Footer />
          </Router>
          </div>

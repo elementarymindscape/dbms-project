@@ -1,10 +1,11 @@
-  import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
   import axios from 'axios';
   import '../Styles/signInPage.css';
-  import {Link} from 'react-router-dom';
+  import {Link, Redirect, useHistory} from 'react-router-dom';
 
       const  SignInPage = () =>{
 
+        // const history = useHistory();
       // const [userName,setUserName]= useState('');
       const [loginStatus,  setLoginStatus] = useState('');
       const [email, setEmail] = useState('');
@@ -24,25 +25,22 @@
               },
             });
             console.log( 'LOGIN RESPONSE' ,res.data);
-            if(res.data.message){
-              setLoginStatus(res.data.message)
-            }
-            else{
-              setLoginStatus(res.data.results[0].userName)
-            }
             localStorage.setItem("token", res.data.token)
+            if(res.data.isAuth === true){
+                window.location = "/home"
+            }
           } catch (e) {
             console.log(e.toString());
           }
         }
 
-        useEffect(()=>{
-          axios.get("http://localhost:3001/api/login").then((res)=>{
-            if(res.data.loggedIn === true){
-              setLoginStatus(res.data.user[0].userName);
-            }
-          })
-        },[])
+        // useEffect(()=>{
+        //   axios.get("http://localhost:3001/api/login").then((res)=>{
+        //     if(res.data.loggedIn === true){
+        //       setLoginStatus(res.data.user[0].userName);
+        //     }
+        //   })
+        // },[])
         
       return(
         <div className='Background'>

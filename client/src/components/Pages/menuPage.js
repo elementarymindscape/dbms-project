@@ -57,7 +57,7 @@ export default class MenuPage extends React.Component{
         }
 
         async componentDidUpdate(prevProps, prevState) {
-            if (prevState.activeIndex != this.state.activeIndex) {
+            if (prevState.activeIndex !== this.state.activeIndex) {
               this.getPizzas();
             }
           }
