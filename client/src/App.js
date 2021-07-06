@@ -35,15 +35,15 @@ import MenuPage from './components/Pages/menuPage';
          <div>
          <Router>
             <NavBar />
-            <Switch>
-            <Route path="/" exact > 
-               <HomePage />
-            </Route>
-            <Route path="/login" exact>
+            {/* <Route path="/login" exact>
                <SignInPage />
             </Route>
             <Route path="/register" exact>
                <RegisterPage />
+            </Route> */}
+            <Switch>
+            <Route path="/" exact > 
+               <HomePage />
             </Route>
             <Route path="/about" exact > 
                <AboutPage />

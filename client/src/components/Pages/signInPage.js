@@ -46,19 +46,16 @@
         
       return(
         <div className='Background'>
-            <div className='color'></div>
-            <div className='color'></div>
-            <div className='color'></div>
             <div className='box'>
           <div className='loginContainer'>
-          <div className='form'>
+          <div className='formm'>
             <h2>Login</h2>
             <form>
                 <div className='inputBoxx' >
-                <input type='text' name='emailID' placeholder='Email ID' onChange={(e)=> setEmail(e.target.value)}></input>
+                <input type='text' required name='emailID' placeholder='Email ID' onChange={(e)=> setEmail(e.target.value)}></input>
                 </div>
                 <div className='inputBoxx' >
-                <input type='password' name='password' placeholder='Password' onChange={(e)=> setPassword(e.target.value)}></input>
+                <input type='password' required name='password' placeholder='Password' onChange={(e)=> setPassword(e.target.value)}></input>
                 </div>
                 <div className='inputBoxx' >
                 <button type='submit' onClick={loginUser} className='btn'>Login</button>
@@ -71,8 +68,7 @@
         </div>
     </div>
     </div>
-    <h1>{loginStatus}</h1>
-      </div>
+    </div>
   );   
   }
 

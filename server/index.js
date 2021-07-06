@@ -26,7 +26,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        expires: 60 * 100000
+        expires: 600000
     }
 }));
 
@@ -161,17 +161,48 @@ app.post("/api/contactus",(req,res)=>{
 
 //GETTING PIZZAS LIST
 app.post("/api/pizzas", (req,res)=>{
+    const menuOption = req.body.menuOption;
     const getAllPizzas = " SELECT * FROM pizzamenu; ";
-    db.query(getAllPizzas, (error, results)=>{
-        if(error){
-            console.log(error);
-        }
-        if(results){
-            res.send({pizzas: results})
-        }else{
-            res.send({message: "Error connecting to Database"})
-        }
-    })
+    const getAllBeverages = " SELECT * FROM beverage_table; ";
+    const getAllSides = " SELECT * FROM sides; ";
+    if(menuOption === "pizza"){
+        db.query(getAllPizzas, (error, results)=>{
+            if(error){
+                console.log(error);
+            }
+            if(results){
+                res.send({pizzas: results})
+            }else{
+                res.send({message: "Error connecting to Database"})
+            }
+        })
+    }
+    else if(menuOption === "beverage"){
+        db.query(getAllBeverages, (error, results)=>{
+            if(error){
+                console.log(error);
+            }
+            if(results){
+                res.send({beverages: results})
+            }else{
+                res.send({message: "Error connecting to Database"})
+            }
+        })
+    }
+    else if(menuOption === "sides"){
+        db.query(getAllSides, (error, results)=>{
+            if(error){
+                console.log(error);
+            }
+            if(results){
+                res.send({sides: results})
+            }else{
+                res.send({message: "Error connecting to Database"})
+            }
+        })
+    }
+    
+    
 });
 
 app.get("/api/registeruser", (req, res) => {

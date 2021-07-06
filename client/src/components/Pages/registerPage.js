@@ -1,4 +1,4 @@
-    import React, { useState } from 'react';
+import React, { useState } from 'react';
     import axios from 'axios';
     import {Link} from 'react-router-dom';
     import '../Styles/registerPage.css'
@@ -41,14 +41,14 @@
               <div className='color'></div>
               <div className='box'>
              <div className='registerContainer'>
-             <div className='form'>
+             <div className='formm'>
               <h2>Register User</h2>
               <form>
                   <div className='inputBoxx' >
                   <input type='text' name='firstName' placeholder='First Name' onChange={(e)=> setFirstName(e.target.value)} ></input>
                   </div>
                   <div className='inputBoxx' >
-                  <input type='text' name='lastName' placeholder='Last Name' onChange={(e)=> setLastName(e.target.value)} ></input>
+                  <input type='text' required name='lastName' placeholder='Last Name' onChange={(e)=> setLastName(e.target.value)} ></input>
                   </div>
                   <div className='inputBoxx' >
                   <input type='text' name='userName' placeholder='Username'  onChange={(e)=> setUserName(e.target.value)}></input>

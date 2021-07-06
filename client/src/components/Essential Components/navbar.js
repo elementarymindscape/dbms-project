@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const NavBar = () =>{
     return(
-        <nav class="navbar navbar-fixed-top navbar-expand-md navbar-dark bg-dark" style={{height: '75px'}} >
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <a href="/" className="navbar-brand ms-3">PeppiPizza Co.</a>
              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -23,12 +23,12 @@ const NavBar = () =>{
                     <li className="nav-item">
                         <a href="/contact" className='nav-link'>Contact Us</a>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <a href="/login" className='nav-link'>Login</a>
                     </li>
                     <li className="nav-item">
                         <a href="/register" className='nav-link'>Register</a>
-                    </li>
+                    </li> */}
                 </ul>    
             </div>
         </nav>

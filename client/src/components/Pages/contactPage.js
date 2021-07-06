@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../Styles/contactPage.css";
 import axios from "axios";
+import * as bootstrap from 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ContactPage =()=>{
 
@@ -8,7 +10,8 @@ const ContactPage =()=>{
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
 
-    const submitMessage = async() => {
+    const submitMessage = async(e) => {
+      e.preventDefault();
           try {
             let res = await axios({
               method: 'post',
@@ -20,10 +23,16 @@ const ContactPage =()=>{
               },
             });
             console.log("CONNTACT", res)
-            if(res.data.message === "Message Sent Successfully!"){
-                alert(res.data.message)
-            }else{
-                alert(res.data.message)
+            if (res.status === 200) {
+              setTimeout(() => {
+                alert("Message Sent Successfully")
+                window.location.reload();
+              }, 500);
+            } else {
+              setTimeout(() => {
+                alert("Message Not Sent! Please Try Again In Sometime")
+                window.location.reload();
+              }, 500);
             }
           } catch (e) {
             console.log(e.toString());
