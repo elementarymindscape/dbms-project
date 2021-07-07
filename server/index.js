@@ -118,7 +118,9 @@ app.post("/api/login", (req, res)=>{
                     const id = results[0].userId;
                     const name = results[0].fullName;
                     const email = results[0].email;
-                    const token = jwt.sign({id, name, email}, "AVeryBigSecretNoOneShouldKnowForJWT", {
+                    const username = results[0].userName;
+                    const phoneNo = results[0].phoneNumber;
+                    const token = jwt.sign({id, name, email, username, phoneNo}, "AVeryBigSecretNoOneShouldKnowForJWT", {
                         expiresIn: 600,
                     });
                     res.send({isAuth: true, token: token, results});
@@ -199,8 +201,38 @@ app.post("/api/pizzas", (req,res)=>{
             }
         })
     }
-    
-    
+});
+
+//Contact History
+app.post("/api/profiledetails", (req,res)=>{
+    const email = req.body.email;
+    const profileView = req.body.profileView;
+    const sqlGetContact = " SELECT * from  contact WHERE email = ?"
+    const sqlGetUserDetails = " SELECT fullName, userName, email, createdAt from  userstable WHERE email = ?"
+    if(profileView === 'Profile'){
+        db.query(sqlGetUserDetails, [email], (error, results)=>{
+            if(error){
+                console.log(error);
+            }
+            if(results){
+                res.send({userDetails: results})
+            }else{
+                res.send({message: "Error connecting to Database"})
+            }
+        });
+    }
+    else if(profileView === 'ContactHistory'){
+        db.query(sqlGetContact, [email], (error, results)=>{
+            if(error){
+                console.log(error);
+            }
+            if(results){
+                res.send({contactDetails: results})
+            }else{
+                res.send({message: "Error connecting to Database"})
+            }
+        });
+    }
 });
 
 app.get("/api/registeruser", (req, res) => {
