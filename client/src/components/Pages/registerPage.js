@@ -42,10 +42,10 @@ import React, { useState } from 'react';
               <h2>Register User</h2>
               <form>
                   <div className='inputBoxx' >
-                  <input type='text' name='firstName' placeholder='First Name' onChange={(e)=> setFirstName(e.target.value)} ></input>
+                  <input required type='text' name='firstName' placeholder='First Name' onChange={(e)=> setFirstName(e.target.value)} ></input>
                   </div>
                   <div className='inputBoxx' >
-                  <input type='text' required name='lastName' placeholder='Last Name' onChange={(e)=> setLastName(e.target.value)} ></input>
+                  <input type='text' name='lastName' placeholder='Last Name' onChange={(e)=> setLastName(e.target.value)} ></input>
                   </div>
                   <div className='inputBoxx' >
                   <input type='text' name='userName' placeholder='Username'  onChange={(e)=> setUserName(e.target.value)}></input>

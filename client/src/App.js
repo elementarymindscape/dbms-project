@@ -2,7 +2,7 @@ import React from 'react';
 // import axios from 'axios';
 import RegisterPage from './components/Pages/registerPage';
 import SignInPage from './components/Pages/signInPage';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
 import PrivateRoute from './privateRoute';
 import ProfilePage from './components/Pages/ProfilePage';
 import jwtDecode from 'jwt-decode';
@@ -13,7 +13,6 @@ import AboutPage from './components/Pages/aboutPage';
 import ContactPage from './components/Pages/contactPage';
 import MenuPage from './components/Pages/menuPage';
 import Logout from './components/Pages/logout';
-import { Menu } from '@material-ui/core';
 
   export default class App extends React.Component{
     state={
@@ -30,7 +29,6 @@ import { Menu } from '@material-ui/core';
      }
 
      render(){
-        console.log("USERRRR", this.state)
       return(
          <div>
          <Router>
@@ -42,7 +40,7 @@ import { Menu } from '@material-ui/core';
             <PrivateRoute path="/about" exact component={AboutPage}/> 
             <PrivateRoute path="/contact" exact component={ContactPage} /> 
             <PrivateRoute path="/menu" exact component={MenuPage} /> 
-            <PrivateRoute path="/profile" exact component={ProfilePage} isAuth={this.state.isAuthenticated} />
+            <PrivateRoute path="/profile" exact component={ProfilePage}/>
          <Footer />
          </Router>
          </div>
