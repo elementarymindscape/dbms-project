@@ -98,7 +98,7 @@ export default class MenuPage extends React.Component{
                                                 <Grid item md={4} xs={12} key={index}>
                                                     <Card>
                                                         <CardHeader title={pizza.pizzaName} ></CardHeader>
-                                                        <CardMedia> <img  src={pizza.imageUrl} height="200px"/></CardMedia>
+                                                        <CardMedia> <img  src={pizza.imageUrl} alt="pizzaImages" height="200px"/></CardMedia>
                                                         <CardContent>{pizza.description}</CardContent>
                                                         <CardContent>Price: {pizza.price}</CardContent>
                                                     </Card>
@@ -118,7 +118,7 @@ export default class MenuPage extends React.Component{
                                                 <Grid item md={4} xs={12} key={index}>
                                                     <Card>
                                                         <CardHeader title={side.sideName} ></CardHeader>
-                                                        <CardMedia> <img  src={side.imageUrl} height="200px"/></CardMedia>
+                                                        <CardMedia> <img  src={side.imageUrl} alt="sidesImages" height="200px"/></CardMedia>
                                                         <CardContent>{side.description}</CardContent>
                                                         <CardContent>Price: {side.price}</CardContent>
                                                     </Card>
@@ -138,7 +138,7 @@ export default class MenuPage extends React.Component{
                                                 <Grid item md={4} xs={12} key={index}>
                                                     <Card>
                                                         <CardHeader title={beverage.beverageName} ></CardHeader>
-                                                        <CardMedia> <img  src={beverage.imageUrl} height="200px"/></CardMedia>
+                                                        <CardMedia> <img  src={beverage.imageUrl} alt="beverageImages" height="200px"/></CardMedia>
                                                         <CardContent>{beverage.description}</CardContent>
                                                         <CardContent>Price: {beverage.price}</CardContent>
                                                     </Card>

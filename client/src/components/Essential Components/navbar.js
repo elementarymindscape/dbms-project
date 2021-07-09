@@ -6,10 +6,10 @@ const NavBar = ({ user }) =>{
     return(
                     <React.Fragment>
                         {user && <React.Fragment>
-                            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                            <nav className="navbar navbar-expand-md navbar-dark bg-dark">
             <a href="/" className="navbar-brand ms-3">PeppiPizza Co.</a>
-             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
                 </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent" >
                 <ul className="navbar-nav ms-auto text-center ">

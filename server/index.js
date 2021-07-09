@@ -121,7 +121,7 @@ app.post("/api/login", (req, res)=>{
                     const username = results[0].userName;
                     const phoneNo = results[0].phoneNumber;
                     const token = jwt.sign({id, name, email, username, phoneNo}, "AVeryBigSecretNoOneShouldKnowForJWT", {
-                        expiresIn: 600,
+                        expiresIn: '1h',
                     });
                     res.send({isAuth: true, token: token, results});
                 }
@@ -233,6 +233,21 @@ app.post("/api/profiledetails", (req,res)=>{
             }
         });
     }
+});
+
+app.post("/api/getimages", (req,res)=>{
+    const getImages = " SELECT * FROM images; ";
+    db.query(getImages, (error,results)=>{
+        if(error){
+            console.log(error)
+        }
+        if(results){
+            res.send({images: results})
+        }
+        else{
+            res.send({message: "Error connecting to database"})
+        }
+    })
 });
 
 app.get("/api/registeruser", (req, res) => {

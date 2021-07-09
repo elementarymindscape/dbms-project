@@ -8,12 +8,6 @@
     import { Typography } from '@material-ui/core';
     import jwtDecode from 'jwt-decode';
     import moment from 'moment';
-    import Card from '@material-ui/core/Card';
-    import CardHeader from '@material-ui/core/CardHeader';
-    import CardMedia from '@material-ui/core/CardMedia';
-    import CardContent from '@material-ui/core/CardContent';
-    import Avatar from '@material-ui/core/Avatar';
-    import PersonIcon from '@material-ui/icons/Person';
 
     function TabContainer({ children }) {
         return <Typography component="div">{children}</Typography>;

@@ -12,12 +12,11 @@ const AboutPage =() =>{
       <div className="aboutBottom">
         <h1> ABOUT US</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-          voluptatum laborum numquam blanditiis harum quisquam eius sed odit
-          fugiat iusto fuga praesentium optio, eaque rerum! Provident similique
-          accusantium nemo autem. Veritatis obcaecati tenetur iure eius earum ut
-          molestias architecto voluptate aliquam nihil, eveniet aliquid culpa.
+        We are here to deliver the most delicious, Hygienic and best pizzas .
+         With trust in Every Bite. 
+         Order your Favorite Pizza from PeppiPizza . 
+         We serve pizzas not only great in taste but also very safe to eat(regular hygiene checks, regular temperature checks of employees, wheat base pizzas).
+        Order pizza online and enjoy your meal with your family and friends.
         </p>
       </div>
     </div>

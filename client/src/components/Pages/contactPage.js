@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "../Styles/contactPage.css";
 import axios from "axios";
-import * as bootstrap from 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ContactPage =()=>{
 
