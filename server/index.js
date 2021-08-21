@@ -250,6 +250,37 @@ app.post("/api/getimages", (req,res)=>{
     })
 });
 
+app.post("/api/getAllProducts", (req,res)=>{
+    const getAllProducts = "SELECT * FROM all_products;";
+    db.query(getAllProducts, (error,results)=>{
+        if(error){
+            console.log(error)
+        }
+        if(results){
+            res.send({Products: results})
+        }
+        else{
+            res.send({message: "Error connecting to database"})
+        }
+    })
+});
+
+app.post("/api/getProductById/:id", (req,res)=>{
+    const itemId = req.params.itemId;
+    const getProductById = "SELECT * FROM all_products WHERE itemId = '?';";
+    db.query(getProductById, (error,results)=>{
+        if(error){
+            console.log(error)
+        }
+        if(results){
+            res.send({Product: results})
+        }
+        else{
+            res.send({message: "Error connecting to database"})
+        }
+    })
+});
+
 app.get("/api/registeruser", (req, res) => {
     res.send("Welcome");
 });

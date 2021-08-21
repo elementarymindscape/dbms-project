@@ -10,6 +10,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
 
 
 function TabContainer({ children }) {
@@ -74,7 +75,6 @@ export default class MenuPage extends React.Component{
         const {items} = this.state;
         return(
             <div>
-                <h3 align='center'> Pizza Menu </h3>
                 <AppBar position="static">
                     <Tabs centered value={this.state.activeIndex}
                     onChange={(e,value)=> this.handleChange(e,value)}
@@ -100,7 +100,11 @@ export default class MenuPage extends React.Component{
                                                         <CardHeader title={pizza.pizzaName} ></CardHeader>
                                                         <CardMedia> <img  src={pizza.imageUrl} alt="pizzaImages" height="200px"/></CardMedia>
                                                         <CardContent>{pizza.description}</CardContent>
-                                                        <CardContent>Price: {pizza.price}</CardContent>
+                                                        <CardContent>Price: {pizza.price}
+                                                        <Button style={{ marginLeft: '1rem' }} variant="contained" color="secondary">
+                                                            Add To Cart
+                                                        </Button>
+                                                        </CardContent>
                                                     </Card>
                                                 </Grid>
                                             ))}
@@ -120,7 +124,11 @@ export default class MenuPage extends React.Component{
                                                         <CardHeader title={side.sideName} ></CardHeader>
                                                         <CardMedia> <img  src={side.imageUrl} alt="sidesImages" height="200px"/></CardMedia>
                                                         <CardContent>{side.description}</CardContent>
-                                                        <CardContent>Price: {side.price}</CardContent>
+                                                        <CardContent>Price: {side.price}
+                                                        <Button style={{ marginLeft: '1rem' }} variant="contained" color="secondary">
+                                                            Add To Cart
+                                                        </Button>
+                                                        </CardContent>
                                                     </Card>
                                                 </Grid>
                                             ))}
@@ -140,7 +148,11 @@ export default class MenuPage extends React.Component{
                                                         <CardHeader title={beverage.beverageName} ></CardHeader>
                                                         <CardMedia> <img  src={beverage.imageUrl} alt="beverageImages" height="200px"/></CardMedia>
                                                         <CardContent>{beverage.description}</CardContent>
-                                                        <CardContent>Price: {beverage.price}</CardContent>
+                                                        <CardContent>Price: {beverage.price}
+                                                        <Button style={{ marginLeft: '1rem' }} variant="contained" color="secondary">
+                                                            Add To Cart
+                                                        </Button>
+                                                        </CardContent>
                                                     </Card>
                                                 </Grid>
                                             ))}

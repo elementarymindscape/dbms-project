@@ -13,6 +13,7 @@ import AboutPage from './components/Pages/aboutPage';
 import ContactPage from './components/Pages/contactPage';
 import MenuPage from './components/Pages/menuPage';
 import Logout from './components/Pages/logout';
+import ShoppingCart from './components/Pages/ShoppingCart'
 
   export default class App extends React.Component{
     state={
@@ -26,9 +27,12 @@ import Logout from './components/Pages/logout';
          this.setState({ user });
         }
         catch(err){}
+
      }
 
      render(){
+
+
       return(
          <div>
          <Router>
@@ -41,6 +45,7 @@ import Logout from './components/Pages/logout';
             <PrivateRoute path="/contact" exact component={ContactPage} /> 
             <PrivateRoute path="/menu" exact component={MenuPage} /> 
             <PrivateRoute path="/profile" exact component={ProfilePage}/>
+            <PrivateRoute path="/cart" exact component={ShoppingCart}/>
          <Footer />
          </Router>
          </div>
